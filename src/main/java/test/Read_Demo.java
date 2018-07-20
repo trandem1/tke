@@ -32,13 +32,6 @@ public class Read_Demo {
 		SparkConf conf = new SparkConf().setAppName("update_db")
 				.set("spark.sql.parquet.binaryAsString", "true");
 		JavaSparkContext jsc = new JavaSparkContext(conf);
-		FileSystem fs = FileSystem.get(jsc.hadoopConfiguration());
-		Path path = new Path("/user/demtv/url_loi/url");
-		if (fs.exists(path)) {
-			fs.delete(path);
-		}
-		FSDataOutputStream output = fs.create(path);
-		BufferedOutputStream out = new BufferedOutputStream(output);
 		jsc.setLogLevel("ERROR");
 		SQLContext sqlContext = new SQLContext(jsc);
 		DataFrame df = sqlContext.read().load("/data/Parquet/AdnLog/2018_07_16");
@@ -75,7 +68,6 @@ public class Read_Demo {
 					return result.trim();
 				}catch (Exception e) {
 					// TODO: handle exception
-					out.write((stringUrl+"\n").getBytes("UTF-8"));
 					return "-1";
 				}
 			
