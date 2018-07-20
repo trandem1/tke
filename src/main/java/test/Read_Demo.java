@@ -77,7 +77,7 @@ public class Read_Demo {
 			@Override
 			public Row call(Row row) throws Exception {
 				// TODO Auto-generated method stub
-				String url = "http://192.168.23.189:5000/search_detail?url=http://" + row.getString(2);
+				String url = "http://192.168.23.189:5000/search_detail?url=http://" + row.getString(2).trim();
 				String result = makeGetRequest(url);
 				Row kq = RowFactory.create(row.getString(0), row.getString(1), row.getString(2), result);
 				return kq;
