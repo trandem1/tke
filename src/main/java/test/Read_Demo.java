@@ -40,17 +40,18 @@ public class Read_Demo {
 		JavaRDD<Row> url_rdd = url.javaRDD().map(new Function<Row, Row>() {
 
 			public String makeGetRequest(String stringUrl) throws IOException {
-				URL url = new URL(stringUrl);
-				URLConnection con = url.openConnection();
-				HttpURLConnection httpCon = (HttpURLConnection) con;
-				httpCon.setRequestMethod("GET");
-				BufferedReader br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
-				String line = "";
-				while (br.ready()) {
-					line += br.readLine();
-				}
-				br.close();
+				
 				try {
+					URL url = new URL(stringUrl);
+					URLConnection con = url.openConnection();
+					HttpURLConnection httpCon = (HttpURLConnection) con;
+					httpCon.setRequestMethod("GET");
+					BufferedReader br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
+					String line = "";
+					while (br.ready()) {
+						line += br.readLine();
+					}
+					br.close();
 					JSONObject json = new JSONObject(line);
 					JSONArray arr = json.getJSONArray("list_cate");
 					float sum = 0.0F;
